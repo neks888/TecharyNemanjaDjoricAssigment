@@ -17,6 +17,12 @@ const Checkout = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+
+    if (cartItems.length === 0) {
+      alert("You can't place the order(your cart is empty");
+      return;
+    }
+
     const totalPrice = cartItems.reduce(
       (acc, item) => acc + item.price * item.quantity,
       0
@@ -28,6 +34,8 @@ const Checkout = () => {
         shippingDetails,
         totalPrice,
       };
+
+      console.log(order);
 
       await axios.post("http://localhost:5000/api/orders", order);
       localStorage.removeItem("cart");

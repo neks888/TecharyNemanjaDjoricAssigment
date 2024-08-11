@@ -1,51 +1,73 @@
 const mongoose = require("mongoose");
-const Product = require("./models/Product"); // Adjust the path as necessary
-require("dotenv").config();
+const Product = require("./models/product"); // Adjust the path as needed
 
-// Connect to MongoDB
+// Connect to your MongoDB database
 mongoose
-  .connect(process.env.MONGO_URI, {
+  .connect("mongodb://localhost:27017/anna-mern", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => {
-    console.log("MongoDB connected");
-  })
-  .catch((err) => {
-    console.error("MongoDB connection error:", err);
-  });
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.error("MongoDB connection error:", err));
 
+// Example product data to seed
 const products = [
   {
+    productId: new mongoose.Types.ObjectId(),
     name: "Apple MacBook Air M1",
     price: 999.99,
+    quantity: 100,
     description:
-      "The Apple MacBook Air with M1 chip offers incredible performance, a stunning 13.3-inch Retina display, and up to 18 hours of battery life. It's lightweight and perfect for professionals on the go.",
+      "The Apple MacBook Air with M1 chip offers incredible performance with an ultra-light design.",
   },
   {
+    productId: new mongoose.Types.ObjectId(),
     name: "Dell XPS 13",
     price: 1199.99,
+    quantity: 50,
     description:
-      "The Dell XPS 13 is a compact and powerful laptop with a 13.4-inch FHD+ display, Intel Core i7 processor, 16GB RAM, and 512GB SSD. It features a sleek design and long battery life.",
+      "The Dell XPS 13 features a stunning InfinityEdge display and powerful performance in a sleek package.",
   },
   {
+    productId: new mongoose.Types.ObjectId(),
     name: "HP Spectre x360",
     price: 1299.99,
+    quantity: 30,
     description:
-      "The HP Spectre x360 is a versatile 2-in-1 laptop with a 13.3-inch touch display, Intel Core i7 processor, 16GB RAM, and 512GB SSD. It offers a premium build quality and excellent performance.",
+      "The HP Spectre x360 is a versatile 2-in-1 laptop with a long battery life and beautiful design.",
+  },
+  {
+    productId: new mongoose.Types.ObjectId(),
+    name: "Lenovo ThinkPad X1 Carbon",
+    price: 1399.99,
+    quantity: 20,
+    description:
+      "The Lenovo ThinkPad X1 Carbon is a business laptop with a durable build and powerful performance.",
+  },
+  {
+    productId: new mongoose.Types.ObjectId(),
+    name: "Microsoft Surface Laptop 4",
+    price: 1499.99,
+    quantity: 25,
+    description:
+      "The Microsoft Surface Laptop 4 combines style, speed, and a touchscreen display in a premium design.",
   },
 ];
 
-// Insert data into the database
-const seedProducts = async () => {
+// Function to seed the database with products
+async function seedDB() {
   try {
-    await Product.insertMany(products);
-    console.log("Dummy products inserted successfully");
-    mongoose.connection.close();
+    await Product.deleteMany({}); // Clear existing products
+
+    await Product.insertMany(products); // Seed products
+    console.log("Products seeded successfully");
+
+    mongoose.connection.close(); // Close the connection when done
   } catch (err) {
-    console.error("Error inserting products:", err);
+    console.error("Error seeding data:", err);
     mongoose.connection.close();
   }
-};
+}
 
-seedProducts();
+// Run the seed function
+seedDB();
