@@ -38,12 +38,14 @@ const ProductDetail = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div>
-      {message && <p>{message}</p>}
-      <h1>{product.name}</h1>
-      <p>{product.price}</p>
-      <p>{product.description}</p>
-      <button onClick={handleAddToCart}>Add to Cart</button>
+    <div className="product-detail">
+      {message && <p className="product-message">{message}</p>}
+      <h1 className="product-name">{product.name}</h1>
+      <p className="product-price">${product.price.toFixed(2)}</p>
+      <p className="product-description">{product.description}</p>
+      <button className="btn btn-add" onClick={handleAddToCart}>
+        Add to Cart
+      </button>
     </div>
   );
 };

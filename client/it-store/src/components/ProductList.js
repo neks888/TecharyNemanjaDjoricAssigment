@@ -27,15 +27,19 @@ const ProductList = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div>
+    <div className="product-list">
       {products.map((product) => (
-        <div key={product._id}>
-          <h2>{product.name}</h2>
-          <p>{product.price}</p>
-          <Link to={`/product/${product._id}`}>
-            <button>View Details</button>
-          </Link>
-          <button onClick={() => addToCart(product)}>Add to Cart</button>
+        <div key={product._id} className="product-card">
+          <h2 className="product-name">{product.name}</h2>
+          <p className="product-price">${product.price.toFixed(2)}</p>
+          <div className="product-actions">
+            <Link to={`/product/${product._id}`}>
+              <button className="btn btn-details info">View Details</button>
+            </Link>
+            <button className="btn btn-add" onClick={() => addToCart(product)}>
+              Add to Cart
+            </button>
+          </div>
         </div>
       ))}
     </div>

@@ -46,8 +46,8 @@ const Checkout = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Checkout</h1>
+    <form onSubmit={handleSubmit} className="checkout-form">
+      <h1 className="form-title">Checkout</h1>
       <input
         type="text"
         name="name"
@@ -55,6 +55,7 @@ const Checkout = () => {
         onChange={handleInputChange}
         placeholder="Name"
         required
+        className="form-input"
       />
       <input
         type="email"
@@ -63,6 +64,7 @@ const Checkout = () => {
         onChange={handleInputChange}
         placeholder="Email"
         required
+        className="form-input"
       />
       <input
         type="text"
@@ -71,6 +73,7 @@ const Checkout = () => {
         onChange={handleInputChange}
         placeholder="Address"
         required
+        className="form-input"
       />
       <input
         type="text"
@@ -79,8 +82,11 @@ const Checkout = () => {
         onChange={handleInputChange}
         placeholder="Phone"
         required
+        className="form-input"
       />
-      <button type="submit">Place Order</button>
+      <button type="submit" className="form-button">
+        Place Order
+      </button>
     </form>
   );
 };
